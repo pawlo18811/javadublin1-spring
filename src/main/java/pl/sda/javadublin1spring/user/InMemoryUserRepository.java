@@ -1,5 +1,6 @@
 package pl.sda.javadublin1spring.user;
 
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Primary
 @Component
 public class InMemoryUserRepository implements UserRepository {
 
