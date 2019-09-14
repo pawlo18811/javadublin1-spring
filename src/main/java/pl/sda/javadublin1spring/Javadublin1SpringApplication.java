@@ -1,13 +1,25 @@
 package pl.sda.javadublin1spring;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import javax.annotation.PostConstruct;
 
 @SpringBootApplication
 public class Javadublin1SpringApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(Javadublin1SpringApplication.class, args);
-	}
+    @Autowired
+    private HelloBean helloBean;
 
+    public static void main(String[] args) {
+        SpringApplication.run(Javadublin1SpringApplication.class, args);
+        System.out.println("blabal");
+
+    }
+
+    @PostConstruct
+    public void run() {
+        helloBean.hello();
+    }
 }
