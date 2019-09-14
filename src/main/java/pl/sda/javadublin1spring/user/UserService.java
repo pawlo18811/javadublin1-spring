@@ -1,10 +1,11 @@
 package pl.sda.javadublin1spring.user;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Controller;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Component
+@Service
 public class UserService {
     private UserRepository userRepository;
 
