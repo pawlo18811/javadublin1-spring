@@ -1,5 +1,6 @@
 package pl.sda.javadublin1spring.user;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
@@ -14,9 +15,12 @@ import java.util.Optional;
 public class InMemoryUserRepository implements UserRepository {
 
     private List<User> users;
+    private RepositoryHelper repositoryHelper;
 
-    public InMemoryUserRepository() {
+    @Autowired
+    public InMemoryUserRepository(RepositoryHelper repositoryHelper) {
         this.users = new ArrayList<>();
+        this.repositoryHelper = repositoryHelper;
     }
 
     InMemoryUserRepository(List<User> users) {
