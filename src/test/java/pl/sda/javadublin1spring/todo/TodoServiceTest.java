@@ -4,6 +4,9 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 public class TodoServiceTest {
@@ -11,7 +14,12 @@ public class TodoServiceTest {
 
     @Before
     public void init() {
-        this.todoService = new TodoService(null);
+        this.todoService = new TodoService(new InMemoryTodoRepository(Arrays.asList(
+                new Todo(1L,"wyjsc z psem", "Lorem ipsum", TodoStatus.DONE),
+                new Todo(2L,"wyniesc smieci", "Lorem ipsum", TodoStatus.DONE),
+                new Todo(3L, "ugotowac obiad", "Lorem ipsum", TodoStatus.NEW),
+                new Todo(4L, "napisac cv", "Lorem ipsum", TodoStatus.IN_PROGRESS)
+        )));
     }
 
     @Test(expected = IllegalArgumentException.class)
@@ -55,5 +63,19 @@ public class TodoServiceTest {
 
         // then
         Assert.assertEquals(expectedTodo, actual);
+    }
+
+    @Test
+    public void findByStatus_ShouldReturnListOfTodoForGivenStatus() {
+        // given
+        TodoStatus todoStatus = TodoStatus.NEW;
+        Todo expected = new Todo(3L, "ugotowac obiad", "Lorem ipsum", TodoStatus.NEW);
+
+        // when
+        List<Todo> actual = todoService.findByStatus(todoStatus);
+
+        // then
+        Assert.assertEquals("List should have exactly one todo", 1, actual.size());
+        Assert.assertEquals("Todo should be equal the expected one", expected, actual.get(0));
     }
 }
